@@ -6,6 +6,7 @@ public class App {
    static Double balance = 80000.00;;
    static Scanner in = new Scanner(System.in);
    static LocalDate dateToday = LocalDate.now();
+   static boolean repeat = true;
     public static void main(String[] args) throws Exception {
 
         System.out.println("""
@@ -13,7 +14,10 @@ public class App {
             Favor elegir la operacion que desea realizar el dia de hoy
                 """ + dateToday);
 
-        System.out.println("""
+        while(repeat)
+        {
+
+            System.out.println("""
                 1. Deposito.
                 2. Transferencia.
                 3. Consultar Balance.
@@ -24,19 +28,29 @@ public class App {
         switch (op) {
             case 1:
                 Deposito();
+                repeat = again();
                 break;
 
             case 2:
                 Transferencia();
+                repeat = again();
             break;
 
             case 3:
-                close();
+                System.out.println("Tu balance actual es de " + balance + "Dop");
+                repeat = false;
             break;
 
+            case 4:
+                close();
+                repeat = false;
+                break;
+
             default:
+            System.out.println("Opcion incorrecta");
                 break;
         }
+     }
 
     }
     public static void Deposito()
@@ -54,7 +68,7 @@ public class App {
                     Detalle de la transferencia:
                     Balance en su cuenta: %f.
                     Cantidad a transferir: %f.
-                    """,_balance, balance);
+                    """,balance, _balance);
 
                     System.out.println("Realizar la tranferencia SI/NO");
 
@@ -124,6 +138,20 @@ public class App {
         System.out.println("Presiona cualquier tecla para cerrar");
         in.nextLine();
         System.out.println("Cerrando.......");
-        in.close();
+       
+    }
+
+    public static Boolean again ()
+    {
+        System.out.println("Desea realizar otra operacion o cerrar servicio? Cerrar/Servicio");
+        String resp = in.nextLine();
+        if(resp.equalsIgnoreCase("Servicio"))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+      
     }
 }
